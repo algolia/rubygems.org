@@ -41,7 +41,32 @@ class Hostess < Rack::Static
 
     download_path = gem_download_path(path)
     name = Version.rubygem_name_for(download_path) if download_path
-    Download.incr(name, download_path) if name
+
+    if name
+      downloads = Download.incr(name, download_path)
+      update_version_index(name, downloads)
+    end
+
     super
   end
+
+  private
+
+    def update_version_index(name, downloads)
+      if should_update_version_index?(downloads)
+        Version.index.partial_update_object({
+          downloads: downloads
+        }, name, false)
+      end
+    end
+
+    def should_update_version_index?(downloads)
+      if downloads < 100
+        true
+      elsif downloads < 100_000
+        downloads % 100 == 0
+      else
+        downloads % 1000 == 0
+      end
+    end
 end

@@ -1,6 +1,8 @@
 require 'digest/sha2'
 
 class Version < ActiveRecord::Base
+  include AlgoliaSearch
+
   belongs_to :rubygem, touch: true
   has_many :dependencies, -> { order('rubygems.name ASC').includes(:rubygem) }, dependent: :destroy
 
@@ -18,6 +20,41 @@ class Version < ActiveRecord::Base
   validate :platform_and_number_are_unique, on: :create
   validate :authors_format, on: :create
   attribute :authors, Type::Value.new
+
+  algoliasearch(
+    per_environment: true,
+    id: :rubygem_name,
+    if: :latest?,
+    disable_indexing: Rails.env.test?
+  ) do
+    attributes :description, :summary, :number, :updated_at
+
+    attribute :authors do
+      authors.to_s.split(/[,&]/).map(&:strip)
+    end
+
+    attribute :updated_at do
+      updated_at.to_i
+    end
+
+    attribute :name do
+      rubygem_name
+    end
+
+    attribute :downloads do
+      rubygem.downloads
+    end
+
+    attributesToIndex [
+      'unordered(name)', 'unordered(summary)', 'unordered(description)', 'unordered(authors)'
+    ]
+
+    customRanking [
+      'desc(downloads)', 'desc(updated_at)'
+    ]
+
+    attributeForDistinct 'name'
+  end
 
   def self.reverse_dependencies(name)
     joins(dependencies: :rubygem)
@@ -134,6 +171,10 @@ class Version < ActiveRecord::Base
 
   def self.info_key(full_name)
     "v:#{full_name}"
+  end
+
+  def rubygem_name 
+    rubygem.name
   end
 
   def platformed?

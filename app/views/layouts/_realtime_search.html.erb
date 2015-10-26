@@ -1,0 +1,36 @@
+<script type="text/template" id="algoliasearch-template-footer">
+  <div class="aa-footer">
+    Matched {{nbHits}} results in {{processingTime}}ms
+</script>
+
+<script type="text/template" id="algoliasearch-template-suggestion">
+  <div class="aa-suggestion-inner">
+    <div class="aa-suggestion-header">
+      <div class="aa-suggestion-downloads">
+        {{downloads}}
+        <small>downloads</small>
+      </div>
+      <div class="aa-suggestion-name">
+        {{{name}}}
+        <small>{{version}}</small>
+      </div>
+    </div>
+    <p class="aa-suggestion-description">{{{description}}}</p>
+    {{#authors}}
+      <p class="aa-suggestion-authors">
+      <span class="aa-suggestion-authors-prefix">AUTHORS: </span>
+        {{{.}}}
+      </p>
+    {{/authors}}
+  </div>
+</script>
+
+<script type="text/template" id="algoliasearch-template-empty">
+  <div class="aa-empty">
+    We couldn&rsquo;t find any gem marching &laquo; <em>{{query}}</em> &raquo;.
+  </div>
+</script>
+
+<%= javascript_include_tag "//cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js" %>
+<%= javascript_include_tag "//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.js" %>
+<%= javascript_include_tag "realtime_search" %>

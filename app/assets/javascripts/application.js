@@ -9,3 +9,4 @@
 //= require jquery.color
 //= require ZeroClipboard
 //= require_tree .
+//= stub realtime_search

@@ -1,0 +1,140 @@
+.algolia-autocomplete {
+  width: 100%;
+  margin-bottom: 45px;
+
+  .aa-input, .aa-hint {
+    width: 100%;
+  }
+  .aa-input {
+    margin-bottom: 0;
+  }
+  .aa-hint {
+    color: #999;
+  }
+
+
+  .aa-dropdown-menu {
+    width: 98%;
+    margin-left: 1%;
+    background-color: #fff;
+    overflow: hidden;
+    border: 5px solid #D4523C;
+    border-top: none;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    box-sizing: border-box;
+  }
+
+  .header & .aa-dropdown-menu {
+    border-width: 3px;
+  }
+
+  .aa-suggestions {
+    border-top: 1px solid #ECB4AA;
+  }
+
+  .aa-suggestion {
+    cursor: pointer;
+    padding: 5px 4px;
+    border-bottom: 1px solid #F6DCD7;
+
+    &.aa-cursor {
+      background-color: #F4F4F4;
+    }
+
+    em {
+      color: #D4523C;
+      font-weight: bold;
+      font-style: normal;
+    }
+  }
+
+  .aa-suggestion-inner {
+    padding: 4px 10px;
+  }
+
+  .aa-suggestion-name {
+    font-weight: 400;
+    font-size: 18px;
+
+    small {
+      font-style: italic;
+      font-size: 13px;
+      margin-left: 10px;
+      font-weight: 300;
+      color: #a6aab2;
+    }
+  }
+
+  .aa-suggestion-downloads {
+    display: block;
+    float: right;
+    font-weight: 800;
+    line-height: 24px;
+
+    small {
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+
+  .aa-suggestion-description, .aa-suggestion-authors {
+    padding: 10px 30px 3px 0;
+    line-height: 19px;
+    font-weight: 400;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+
+    &:empty {
+      padding: 0;
+    }
+  }
+
+  .aa-suggestion-authors {
+    font-size: 14px;
+  }
+
+  .aa-suggestion-authors-prefix {
+    color: #a6aab2;
+    font-size: 0.8em;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .aa-footer {
+    padding: 14px;
+    font-size: 12px;
+  }
+
+  .aa-footer-branding {
+    float: right;
+    margin-top: -6px;
+
+    img {
+      width: 85px;
+      vertical-align: middle;
+    }
+  }
+
+  .aa-empty {
+    padding: 14px;
+    border-top: 1px solid #ECB4AA;
+
+    em {
+      font-style: normal;
+      font-weight: bold;
+      color:  #D4523C;
+    }
+  }
+}
+
+.header__search-wrap {
+  &.algolia-autocomplete-open {
+    width: 90%;
+    max-width: 780px;
+    transition: none;
+    transition: width 0.2s ease-in-out;
+  }
+}

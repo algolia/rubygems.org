@@ -41,6 +41,7 @@ gem 'validates_formatting_of'
 gem 'will_paginate'
 gem 'xml-simple'
 gem 'yajl-ruby', require: 'yajl'
+gem 'algoliasearch-rails'
 
 group :development, :test do
   gem 'rubocop', '~> 0.34.0'

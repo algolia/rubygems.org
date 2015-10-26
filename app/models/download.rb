@@ -5,12 +5,12 @@ class Download
   def self.incr(name, full_name)
     today = Time.zone.today.to_s
     Redis.current.incr(COUNT_KEY)
-    Redis.current.incr(rubygem_key(name))
     Redis.current.incr(version_key(full_name))
     Redis.current.zincrby(today_key, 1, full_name)
     Redis.current.zincrby(ALL_KEY, 1, full_name)
     Redis.current.hincrby(version_history_key(full_name), today, 1)
     Redis.current.hincrby(rubygem_history_key(name), today, 1)
+    Redis.current.incr(rubygem_key(name))
   end
 
   def self.count

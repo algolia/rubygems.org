@@ -1,0 +1,150 @@
+//= require algolia/v3/algoliasearch.min
+//= require_self
+
+(function() {
+
+  function roundWithPrecision(nb, precisionOrder) {
+    var precision = Math.pow(10, precisionOrder)
+    return Math.round(nb * precision) / precision
+  }
+
+  function nbWithCommas(nb) {
+    // http://stackoverflow.com/a/2901298
+    return nb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  var templatesCache = {};
+  var templateRegexp = /({{(\w+)}})/g
+
+  function compileTemplate(selector) {
+    var content = $(selector).html();
+    var template = Hogan.compile(content);
+    return function(data) {
+      return template.render(data);
+    };
+  }
+
+  var templates = {
+    suggestion: compileTemplate('#algoliasearch-template-suggestion'),
+    footer: compileTemplate('#algoliasearch-template-footer'),
+    empty: compileTemplate('#algoliasearch-template-empty')
+  };
+
+  function formatNbForSearch(nb) {
+    var precision = 100;
+
+    if(nb < 1e3) {
+      return nb;
+    } else if(nb < 1e6) {
+      return roundWithPrecision(nb / 1e3, 2) + 'K';
+    } else if(nb / 1e9) {
+      return roundWithPrecision(nb / 1e6, 2) + 'M';
+    } else {
+      return roundWithPrecision(nb / 1e9, 2) + 'B';
+    }
+  }
+
+  function suggestionTemplate(suggestion) {
+    var results = suggestion._highlightResult;
+    var name = results.name.value;
+
+    var hasMatchedAuthors = false;
+
+    for(var i = 0; i < results.authors && results.authors.length; i++) {
+      if(results.authors[i].matchedWords.length > 0) {
+        hasMatchedAuthors = true;
+        break;
+      }
+    }
+
+    var description = '';
+
+    if(results.summary && results.summary.matchedWords.length > 0) {
+      description = results.summary.value;
+    } else if(results.description && results.description.matchedWords.length > 0) {
+      description = suggestion._snippetResult.description.value;
+    }
+
+    return templates.suggestion({
+      downloads: formatNbForSearch(suggestion.downloads),
+      name: name,
+      version: suggestion.number,
+      description: description,
+      authors: hasMatchedAuthors ? $.map(results.authors, function(author) {
+        return author.value;
+      }).join(', ') : []
+    });
+  }
+
+  function footerTemplate(query, results) {
+    return query.isEmpty ? '' : templates.footer({
+      nbHits: nbWithCommas(results.nbHits),
+      processingTime: results.processingTimeMS
+    });
+  }
+
+  function emptyTemplate(query, isEmpty) {
+    return templates.empty({
+      query: query.query
+    });
+  }
+
+  $(function() {
+    var client = algoliasearch('<%= ENV["ALGOLIA_APP_ID"] %>', '<%= ENV["ALGOLIA_PUBLIC_API_KEY"] %>');
+    var index = client.initIndex('Version_<%= Rails.env %>');
+
+    var $searchInput = $('.header__search, .home__search');
+    var $form = $searchInput.closest('form');
+    var $nav = $('nav.header__nav-links');
+
+    $searchInput
+      .on('focus', function() {
+        if($form.hasClass('header__search-wrap')) {
+          $nav.hide();
+        }
+
+        $form.addClass('algolia-autocomplete-open');
+      })
+      .on('blur', function() {
+        if($form.hasClass('header__search-wrap')) {
+          $nav.show();
+        }
+
+        $form.removeClass('algolia-autocomplete-open');
+      });
+
+    $searchInput.autocomplete({
+      debug: true,
+      hint: false,
+      openOnFocus: true,
+      advancedSyntax: true
+    }, [{
+      source: function(query, cb) {
+        var searchableAttributes = ['name', 'summary', 'description'];
+
+        if(query.length > 4) {
+          searchableAttributes.push('authors');
+        }
+
+        index.search(query, {
+          hitsPerPage: 5,
+          distinct: false,
+          restrictSearchableAttributes: searchableAttributes.join(','),
+          attributesToSnippet: 'description'
+        }, function(err, content) {
+          if(err) return;
+          cb(content.hits, content)
+        });
+      },
+      displayKey: 'name',
+      templates: {
+        suggestion: suggestionTemplate,
+        footer: footerTemplate,
+        empty: emptyTemplate
+      }
+    }]).on('autocomplete:selected', function(event, suggestion, dataset) {
+      location.href = '/gems/' + suggestion.name;
+    });
+  });
+
+})();
