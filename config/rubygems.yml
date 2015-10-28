@@ -15,8 +15,8 @@ staging:
 
 live: &LIVE
   protocol: https
-  host: rubygems.org
-  s3_bucket: production.s3.rubygems.org
+  host: rubygems.algolia.com
+  # s3_bucket: production.s3.rubygems.org
 
 production:
   <<: *LIVE

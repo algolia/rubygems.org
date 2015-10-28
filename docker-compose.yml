@@ -1,21 +1,15 @@
 db:
   image: postgres
+  volumes:
+    - ./data/pg:/var/lib/postgresql
   ports:
     - "5432:5432"
 redis:
   image: redis
 web:
-  build: .
-  command: bundle exec rails s -p 3000 --binding 0.0.0.0
-  volumes:
-    - .:/rubygems.org
-  ports:
-    - "3000:3000"
+  extends: 
+    file: docker-compose.web.yml
+    service: web
   links:
     - db
     - redis
-  environment:
-    REDISTOGO_URL: "redis://redis:6379"
-    ALGOLIA_APP_ID: L8HHT8TLRP
-    ALGOLIA_API_KEY: ab9a7d18a8d721b84d8eb5f2ab5f37bd
-    ALGOLIA_PUBLIC_API_KEY: 905e4431a328b4f31d975c9f84613b0d

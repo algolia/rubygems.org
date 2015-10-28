@@ -1,0 +1,18 @@
+db:
+  extends: 
+    file: docker-compose.yml
+    service: db
+redis:
+  extends:
+    file: docker-compose.yml
+    service: redis
+web:
+  extends:
+    file: docker-compose.web.yml
+    service: web
+  links: 
+    - db
+    - redis 
+  environment:
+    RAILS_ENV: production
+    SECRET_KEY_BASE: tatata
