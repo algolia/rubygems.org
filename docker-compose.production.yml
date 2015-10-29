@@ -6,6 +6,9 @@ redis:
   extends:
     file: docker-compose.yml
     service: redis
+  command: redis-server /redis.production.conf
+  volumes: 
+    - ./redis.production.conf:/redis.production.conf
 web:
   extends:
     file: docker-compose.web.yml

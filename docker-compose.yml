@@ -1,3 +1,10 @@
+web:
+  extends: 
+    file: docker-compose.web.yml
+    service: web
+  links:
+    - db
+    - redis
 db:
   image: postgres
   volumes:
@@ -6,10 +13,7 @@ db:
     - "5432:5432"
 redis:
   image: redis
-web:
-  extends: 
-    file: docker-compose.web.yml
-    service: web
-  links:
-    - db
-    - redis
+  volumes: 
+    - ./data/redis:/data
+    - ./redis.production.conf:/redis.production.conf
+  # command: redis-server /redis.production.conf
