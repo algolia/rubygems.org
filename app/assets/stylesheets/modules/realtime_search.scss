@@ -53,29 +53,48 @@
     padding: 4px 10px;
   }
 
+  .aa-suggestion-header {
+    display: table;
+    width: 100%;
+  }
+
+  .aa-suggestion-name, .aa-suggestion-downloads {
+    display: table-cell;
+  }
+
   .aa-suggestion-name {
     font-weight: 400;
     font-size: 18px;
+    text-overflow: clip;
+    text-overflow: ellipsis;
+    text-overflow: "…";
+    overflow: hidden;
+    max-width: 100%;
 
     small {
       font-style: italic;
       font-size: 13px;
-      margin-left: 10px;
       font-weight: 300;
       color: #a6aab2;
     }
   }
 
   .aa-suggestion-downloads {
-    display: block;
-    float: right;
     font-weight: 800;
     line-height: 24px;
+    text-align: right;
 
     small {
       text-transform: uppercase;
       font-size: 11px;
       font-weight: 400;
+    }
+  }
+
+  .mobile-nav-is-expanded & {
+    .aa-suggestion-header, .aa-suggestion-name, .aa-suggestion-downloads {
+      display: block;
+      text-align: left;
     }
   }
 
@@ -87,7 +106,7 @@
     font-weight: 300;
     letter-spacing: 0.2px;
 
-    &:empty {
+    &:empty { 
       padding: 0;
     }
   }
@@ -136,5 +155,13 @@
     max-width: 780px;
     transition: none;
     transition: width 0.2s ease-in-out;
+  }
+}
+
+// overwrites
+
+@media (max-width: 1019px) {
+  main {
+    overflow: visible !important;
   }
 }
