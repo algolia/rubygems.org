@@ -28,7 +28,7 @@
         <a href="https://github.com/algolia/rubygems.org/tree/search">fork</a> 
         of the 
         <a href="https://rubygems.org">rubygems.org</a> website. 
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://algolia.rubygems.org" data-text="Check out @algolia's fork of the rubygems.org website!" data-hashtags="ruby,rubygems,search">Tweet</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://rubygems.algolia.com" data-text="Check out @algolia's fork of the rubygems.org website!" data-hashtags="ruby,rubygems,search">Tweet</a>
       </small>
 
       <div class="algolia-notice-logos">
@@ -92,23 +92,6 @@
 
             <%= link_to t('.footer.guides'), "http://guides.rubygems.org", class: "header__nav-link" %>
             <%= link_to t('.footer.contribute'), "http://guides.rubygems.org/contributing/", class: "header__nav-link" %>
-
-            <% if signed_in? %>
-              <a href="<%= profile_path(current_user.display_id) %>" class="header__nav-link desktop__header__nav-link">
-                <%= truncate current_user.name %>
-                <%= gravatar 80, "user_gravatar" %>
-              </a>
-              <a href="#" class="header__popup-link" data-icon="▼">
-                <span class="t-hidden">More items</span>
-              </a>
-              <div class="header__popup__nav-links">
-                <%= link_to t('.header.dashboard'), dashboard_url, class: "header__nav-link" %>
-                <%= link_to t('.header.sign_out'), sign_out_path, method: :delete, class: "header__nav-link" %>
-              </div>
-            <% else %>
-              <%= link_to t('.header.sign_in'), sign_in_path, class: "header__nav-link #{'is-active' if request.path_info == '/sign_in'}" %>
-              <%= link_to t('.header.sign_up'), sign_up_path, class: "header__nav-link #{'is-active' if request.path_info == '/sign_up'}" %>
-            <% end %>
           </nav>
         </div>
       </div>
