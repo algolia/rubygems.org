@@ -170,3 +170,67 @@
     overflow: visible !important;
   }
 }
+
+
+.algolia-notice {
+  position: fixed;
+  width: 100%;
+  padding: 15px 20px 4px 20px;
+  background: white;
+  bottom: 0;
+  // border-top: 3px solid #141c22;
+  box-sizing: border-box;
+  // text-align: center;
+  box-shadow: inset 0 7px #F08978;
+  z-index: 1000;
+
+  .algolia-notice-logos * {
+    vertical-align: middle;
+  }
+
+  .algolia-notice-message {
+    float: right;
+    margin-top: 8px;
+
+    a {
+      vertical-align: bottom;
+      color: #E9573F;
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .algolia-logo {
+    width: 75px;
+  }
+
+  .algolia-heart {
+    font-size: 200%;
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #E9573F;
+  }
+
+  .rubygems-logo {
+    width: 75px;
+  }
+
+  svg {
+    width: 37px;
+    margin-left: 10px;
+    margin-top: -3px;
+  }
+}
+
+.footer {
+  padding-bottom: 98px;
+}
+
+iframe.twitter-share-button {
+  float: right;
+  margin-left: 10px;
+  margin-top: -3px;
+}
