@@ -60,9 +60,11 @@
     var description = '';
 
     if(results.summary && results.summary.matchedWords.length > 0) {
-      description = results.summary.value;
+      description = suggestion._snippetResult.summary.value;
     } else if(results.description && results.description.matchedWords.length > 0) {
       description = suggestion._snippetResult.description.value;
+    } else {
+      description = results.description.value
     }
 
     return templates.suggestion({
@@ -96,9 +98,14 @@
     var $searchInput = $('.header__search, .home__search');
     var $form = $searchInput.closest('form');
     var $nav = $('nav.header__nav-links');
+    var $header = $('header');
 
     $searchInput
       .on('focus', function() {
+        if($header.hasClass('mobile-nav-is-expanded')) {
+          return;
+        }
+
         if($form.hasClass('header__search-wrap')) {
           $nav.hide();
         }
@@ -130,7 +137,7 @@
           hitsPerPage: 5,
           distinct: false,
           restrictSearchableAttributes: searchableAttributes.join(','),
-          attributesToSnippet: 'description'
+          attributesToSnippet: 'description:30,summary:30'
         }, function(err, content) {
           if(err) return;
           cb(content.hits, content)
