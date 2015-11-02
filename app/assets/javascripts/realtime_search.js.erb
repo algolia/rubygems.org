@@ -50,7 +50,7 @@
 
     var hasMatchedAuthors = false;
 
-    for(var i = 0; i < results.authors && results.authors.length; i++) {
+    for(var i = 0; i < (results.authors && results.authors.length); i++) {
       if(results.authors[i].matchedWords.length > 0) {
         hasMatchedAuthors = true;
         break;
@@ -64,7 +64,8 @@
     } else if(results.description && results.description.matchedWords.length > 0) {
       description = suggestion._snippetResult.description.value;
     } else {
-      description = results.description.value
+      description = (results.description && results.description.value) || 
+        (results.summary && results.summary.value)
     }
 
     return templates.suggestion({

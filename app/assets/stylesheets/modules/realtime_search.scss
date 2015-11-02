@@ -160,6 +160,11 @@
 
 // overwrites
 
+.header {
+  position: relative;
+  z-index: 100;
+}
+
 @media (max-width: 1019px) {
   main {
     overflow: visible !important;
