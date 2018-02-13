@@ -1,0 +1,14 @@
+development: &DEVELOPMENT
+  url: <%= ENV['DATABASE_URL'] %>
+
+staging:
+  <<: *DEVELOPMENT
+
+test: &TEST
+  <<: *DEVELOPMENT
+  database: gemcutter_test
+  min_messages: warning
+
+production:
+  adapter: postgresql
+  database: gemcutter_production
