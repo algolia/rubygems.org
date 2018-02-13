@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Clearance::Authentication
   include Clearance::Authorization
 
-  helper :announcements
+  # helper :announcements
   helper ActiveSupport::NumberHelper
 
   protect_from_forgery only: %i[create update destroy], with: :exception
@@ -14,11 +14,11 @@ class ApplicationController < ActionController::Base
 
   def set_csp
     response.headers['Content-Security-Policy'] = "default-src 'self'; "\
-      "script-src 'self' https://secure.gaug.es; "\
-      "style-src 'self' https://fonts.googleapis.com; "\
+      "script-src 'self' 'unsafe-eval' https://secure.gaug.es https://cdn.jsdelivr.net; "\
+      "style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net; "\
       "img-src 'self' https://secure.gaug.es https://gravatar.com https://secure.gravatar.com; "\
       "font-src 'self' https://fonts.gstatic.com; "\
-      "connect-src https://s3-us-west-2.amazonaws.com/rubygems-dumps/; "\
+      "connect-src https://s3-us-west-2.amazonaws.com/rubygems-dumps/ lgbnqcjzq4-dsn.algolia.net lgbnqcjzq4-1.algolia.net lgbnqcjzq4-2.algolia.net lgbnqcjzq4-3.algolia.net; "\
       "frame-src https://ghbtns.com"
   end
 

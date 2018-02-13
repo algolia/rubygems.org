@@ -15,6 +15,8 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <%= stylesheet_link_tag("application") %>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.5.0/dist/instantsearch.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.5.0/dist/instantsearch-theme-algolia.min.css">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
     <link href='https://fonts.googleapis.com/css?family=Roboto:100&amp;subset=greek,latin,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
     <%= render "layouts/feeds" %>
@@ -92,7 +94,7 @@
       </div>
     <% end %>
 
-    <%= render partial: "announcements/public_announcement" %>
+    <!-- <%= render partial: "announcements/public_announcement" %> -->
 
     <% if content_for?(:fold) %>
       <div class="fold">
@@ -222,6 +224,7 @@
       </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.5.0"></script>
     <%= javascript_include_tag "application" %>
     <%= yield :javascript %>
     <script type="text/javascript" async defer id="gauges-tracker" data-site-id="4eab0ac8613f5d1583000005" src="//secure.gaug.es/track.js"></script>
