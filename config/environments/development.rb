@@ -1,56 +1,101 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
-  config.cache_classes = false
+  # Code is not reloaded between requests.
+  config.cache_classes = true
 
-  # Do not eager load code on boot.
-  config.eager_load = false
+  # Eager load code on boot. This eager loads most of Rails and
+  # your application in memory, allowing both threaded web servers
+  # and those relying on copy on write to perform better.
+  # Rake tasks automatically ignore this option for performance.
+  config.eager_load = true
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  # Full error reports are disabled and caching is turned on.
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Compress JavaScripts and CSS.
+  config.assets.js_compressor = :uglifier
+  config.assets.css_compressor = :sass
+
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = false
+  config.assets.initialize_on_precompile = false
+
+  # Generate digests for assets URLs.
+  config.assets.digest = true
+
+  # `config.assets.precompile` and `config.assets.version` have moved to
+  # config/initializers/assets.rb
+
+  # Specifies the header that your server uses for sending files.
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+
+  # Force all access to the app over SSL and use secure cookies.
+  config.force_ssl = true
+  config.ssl_options = { hsts: false }
+
+  # Mount Action Cable outside main process or domain
+  # config.action_cable.mount_path = nil
+  # config.action_cable.url = 'wss://example.com/cable'
+  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+
+  # Set to :debug to see everything in the log.
+  config.log_level = :info
+
+  # Prepend all log lines with the following tags.
+  # config.log_tags = [ :subdomain, :uuid ]
+
+  # Use a different cache store in production.
+  # config.cache_store = :mem_cache_store
+
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  # config.action_controller.asset_host = "http://assets.example.com"
+
+  # Use a real queuing backend for Active Job (and separate queues per environment)
+  # config.active_job.queue_adapter     = :resque
+  # config.active_job.queue_name_prefix = "gemcutter_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { host: Gemcutter::HOST,
                                                protocol: Gemcutter::PROTOCOL }
-  config.action_mailer.preview_path = Rails.root.join("lib")
 
-  # Print deprecation notices to the Rails logger.
-  config.active_support.deprecation = :log
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
+  config.i18n.fallbacks = true
 
-  # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
+  # Send deprecation notices to registered listeners.
+  config.active_support.deprecation = :notify
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
 
-  # Adds additional error checking when serving assets at runtime.
-  # Checks for improperly declared sprockets dependencies.
-  # Raises helpful error messages.
-  config.assets.raise_runtime_errors = true
+  # Use a different logger for distributed setups.
+  # require 'syslog/logger'
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
 
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
 
-  config.middleware.use "Hostess"
+  config.cache_store = :dalli_store, ENV['MEMCACHED_ENDPOINT'], {
+    failover: true,
+    socket_timeout: 1.5,
+    socket_failure_delay: 0.2,
+    compress: true,
+    compression_min_size: 524_288
+  }
 
-  config.cache_store = :dalli_store,
-                       'localhost:11211',
-                       { compress: true, compression_min_size: 524_288 }
-
-  # Use an evented file watcher to asynchronously detect changes in source code,
-  # routes, locales, etc. This feature depends on the listen gem.
-  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.middleware.use Redirector
 end
