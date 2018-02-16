@@ -5,6 +5,10 @@ const search = instantsearch({
   urlSync: true
 });
 
+const numberWithCommas = function(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 // initialize SearchBox
   search.addWidget(
     instantsearch.widgets.searchBox({
@@ -18,28 +22,22 @@ search.addWidget(
       container: '#hits',
       templates: {
         empty: 'No results',
-        item: '\
-          <a class="gems__gem" href="/gems/{{name}}">\
-            <span class="gems__gem__info">\
-              <h2 class="gems__gem__name">\
-                {{{_highlightResult.name.value}}}\
-                <span class="gems__gem__version">{{number}}</span>\
-              </h2>\
-              <p class="gems__gem__desc t-text">{{description}}</p>\
-            </span>\
-            <p class="gems__gem__downloads__count">\
-              {{downloads}}\
-              <span class="gems__gem__downloads__heading">\
-                Téléchargements\
+        item: function(hit) {
+          return '<a class="gems__gem" href="/gems/' + hit.name + '">\
+              <span class="gems__gem__info">\
+                <h2 class="gems__gem__name">' + hit._highlightResult.name.value +
+                  '<span class="gems__gem__version">' + hit.number + '</span>\
+                </h2>\
+                <p class="gems__gem__desc t-text">' + hit._highlightResult.description.value + '</p>\
               </span>\
-            </p>\
-          </a>'
+              <p class="gems__gem__downloads__count">' + numberWithCommas(hit.downloads) + '\
+                <span class="gems__gem__downloads__heading">Downloads</span>\
+              </p>\
+            </a>';
+        }
       }
     })
   );
-
-
-
 
 
   // <%= link_to rubygem_path(rubygem.name), :class => 'gems__gem' do %>
