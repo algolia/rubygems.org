@@ -156,3 +156,11 @@ dt {
 dd input {
   max-width: none !important;;
 }
+
+.ais-hits em {
+  border-bottom: dotted 1px;
+}
+
+.ais-hits .gems__gem__name em {
+  font-style: normal;
+}
