@@ -164,3 +164,13 @@ dd input {
 .ais-hits .gems__gem__name em {
   font-style: normal;
 }
+
+#query .ais-search-box {
+  height: 70px;
+  font-size: 22px;
+  margin: 50px 0 30px;
+}
+
+#query .ais-search-box {
+  max-width: none;
+}

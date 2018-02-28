@@ -13,7 +13,11 @@ const numberWithCommas = function(x) {
   search.addWidget(
     instantsearch.widgets.searchBox({
       container: '#query',
-      placeholder: 'Search for Gems'
+      placeholder: 'Search for Gems',
+      autofocus: false,
+      poweredBy: false,
+      reset: true,
+      loadingIndicator: false
     })
   );
 
