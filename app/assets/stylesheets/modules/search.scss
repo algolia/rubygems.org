@@ -174,3 +174,51 @@ dd input {
 #query .ais-search-box {
   max-width: none;
 }
+
+.ais-hits--item {
+  position: relative;
+}
+
+.ais-hit-license {
+    font-size: 0.75rem;
+    border: solid 1px #ccc;
+    color: rgba(0,0,0,0.5);
+    padding: 2px 4px;
+    padding-top: 2px;
+    padding-right: 4px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    border-radius: 4px;
+    margin: 0 8px;
+    letter-spacing: 0.2px;
+    vertical-align: middle;
+}
+
+.ais-hit-links {
+  position: absolute;
+  bottom: 8px;
+  right: 0;
+
+    a {
+    display: block;
+    opacity: 0.5;
+    text-indent: -9000px;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  a:hover {
+    opacity: 1;
+  }
+}
+
+.ais-hit-link-github {
+    display: block;
+    float: right;
+
+    a {
+        background-image: image-url("ico-github.svg");
+        width: 26px;
+        height: 26px;
+      }
+}
