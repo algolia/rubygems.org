@@ -59,6 +59,15 @@ search.addWidget(
     })
   );
 
+search.addWidget(
+  instantsearch.widgets.stats({
+    container: '#stats-container',
+    cssClasses: {
+      body: 'ais-stats-results'
+    }
+  })
+);
+
 
   // <%= link_to rubygem_path(rubygem.name), :class => 'gems__gem' do %>
   //   <span class="gems__gem__info">

@@ -154,14 +154,11 @@ dt {
 }
 
 dd input {
-  max-width: none !important;;
+  max-width: none !important;
 }
 
 .ais-hits em {
   border-bottom: dotted 1px;
-}
-
-.ais-hits .gems__gem__name em {
   font-style: normal;
 }
 
@@ -169,9 +166,6 @@ dd input {
   height: 70px;
   font-size: 22px;
   margin: 50px 0 30px;
-}
-
-#query .ais-search-box {
   max-width: none;
 }
 
@@ -226,4 +220,8 @@ dd input {
         width: 26px;
         height: 26px;
       }
+}
+
+.ais-stats-results {
+  font-size: 16px;
 }
