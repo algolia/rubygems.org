@@ -179,19 +179,24 @@ dd input {
   position: relative;
 }
 
-.ais-hit-license {
-    font-size: 0.75rem;
-    border: solid 1px #ccc;
-    color: rgba(0,0,0,0.5);
-    padding: 2px 4px;
-    padding-top: 2px;
-    padding-right: 4px;
-    padding-bottom: 2px;
-    padding-left: 4px;
-    border-radius: 4px;
-    margin: 0 8px;
-    letter-spacing: 0.2px;
-    vertical-align: middle;
+.ais-hit-licenses {
+  display: inline-block;
+  margin-right: 10px;
+
+  .ais-hit-license {
+      font-size: 0.75rem;
+      border: solid 1px #ccc;
+      color: rgba(0,0,0,0.5);
+      padding: 2px 4px;
+      padding-top: 2px;
+      padding-right: 4px;
+      padding-bottom: 2px;
+      padding-left: 4px;
+      border-radius: 4px;
+      margin-left: 8px;
+      letter-spacing: 0.2px;
+      vertical-align: middle;
+  }
 }
 
 .ais-hit-links {

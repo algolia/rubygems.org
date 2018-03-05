@@ -27,6 +27,12 @@ search.addWidget(
       templates: {
         empty: 'No results',
         item: function(hit) {
+          var licenses = '';
+
+          for (var i = 0; i < hit.licenses.length; i++) {
+            licenses += '<span class="ais-hit-license">' + hit.licenses[i] + '</span>'
+          }
+
           return '\
           <div class="ais-hit-links">\
            <span class="ais-hit-link-github">\
@@ -36,8 +42,8 @@ search.addWidget(
           <a class="gems__gem" href="/gems/' + hit.name + '">\
               <span class="gems__gem__info">\
                 <h2 class="gems__gem__name">' + hit._highlightResult.name.value +
-                  (hit.licenses ? '<span class="ais-hit-license">' + hit.licenses + '</span>' : '') +
-                  '<span class="gems__gem__version">' + hit.number + '</span>\
+                  '<div class="ais-hit-licenses">' + licenses + '</div>\
+                  <span class="gems__gem__version">' + hit.number + '</span>\
                 </h2>\
                 <p class="gems__gem__desc t-text">' + hit._snippetResult.description.value + '</p>\
               </span>\
