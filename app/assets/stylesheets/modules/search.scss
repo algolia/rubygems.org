@@ -164,9 +164,17 @@ dd input {
 
 #query .ais-search-box {
   height: 70px;
-  font-size: 22px;
-  margin: 50px 0 30px;
+  font-size: 21px;
+  margin: 50px 0 26px;
   max-width: none;
+
+  .ais-search-box--input {
+    padding: 10px 10px 10px 40px;
+  }
+}
+
+.ais-stats-results {
+  font-size: 16px;
 }
 
 .ais-hits--item {
@@ -178,52 +186,62 @@ dd input {
   margin-right: 10px;
 
   .ais-hit-license {
-      font-size: 0.75rem;
-      border: solid 1px #ccc;
-      color: rgba(0,0,0,0.5);
-      padding: 2px 4px;
-      padding-top: 2px;
-      padding-right: 4px;
-      padding-bottom: 2px;
-      padding-left: 4px;
-      border-radius: 4px;
-      margin-left: 8px;
-      letter-spacing: 0.2px;
-      vertical-align: middle;
+    font-size: 0.75rem;
+    border: solid 1px #ccc;
+    color: rgba(0,0,0,0.5);
+    padding: 2px 4px;
+    padding-top: 2px;
+    padding-right: 4px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    border-radius: 4px;
+    margin-left: 8px;
+    letter-spacing: 0.2px;
+    vertical-align: middle;
   }
 }
 
 .ais-hit-links {
   position: absolute;
-  bottom: 8px;
-  right: 0;
+  bottom: 25px;
+  left: 0;
 
-    a {
+  a {
     display: block;
-    opacity: 0.5;
-    text-indent: -9000px;
+    opacity: 0.9;
     height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
   }
   a:hover {
     opacity: 1;
   }
-}
+  img {
+    vertical-align: middle;
 
-.ais-hit-link-github {
+    &.ais-project-author {
+      border-radius: 4px;
+      margin-right: 4px;
+      position: relative;
+      top: -1px;
+    }
+  }
+  .ais-author-link {
+    font-size: 12px;
+    color: #a6aab2;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .ais-hit-link-github {
     display: block;
     float: right;
 
     a {
-        background-image: image-url("ico-github.svg");
-        width: 26px;
-        height: 26px;
-      }
+      background-image: image-url("ico-github.svg");
+      width: 26px;
+      height: 26px;
+    }
+  }
 }
 
-.ais-stats-results {
-  font-size: 16px;
 #hits-footer {
   position: relative;
 

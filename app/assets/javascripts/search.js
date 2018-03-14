@@ -27,10 +27,16 @@ search.addWidget(
       templates: {
         empty: 'No results',
         item: function(hit) {
-          var desc = (hit._snippetResult.description.value ? 
+          var licenses = '';
+          var desc = (hit._snippetResult.description.value ?
             hit._snippetResult.description.value :
             hit._snippetResult.summary.value);
-          var licenses = '';
+          var author = [hit.github_organisation, hit.authors, hit.hostname].filter(e => e && e.length)[0];
+          var authorURL = [hit.home, hit.code, 'http://www.rubydoc.info/gems/' + hit.name].filter(e => e && e.length)[0];
+
+          var authorImg = (hit.github_organisation ?
+            'https://res.cloudinary.com/hilnmyskv/image/fetch/w_40,h_40,f_auto,q_80,fl_lossy/https://github.com/' + hit.github_organisation + '.png' :
+            '/assets/ico-home.svg');
 
           for (var i = 0; i < hit.licenses.length; i++) {
             licenses += '<span class="ais-hit-license">' + hit.licenses[i] + '</span>'
@@ -38,9 +44,10 @@ search.addWidget(
 
           return '\
           <div class="ais-hit-links">\
-           <span class="ais-hit-link-github">\
-             <a href="' + hit.home + '" target="_blank">GitHub</a>\
-           </span>\
+            <a href="' + authorURL + '" target="_blank">\
+              <img width="20" height="20" class="ais-project-author" src="' + authorImg + '" />\
+              <span class="ais-author-link">' + author + '</span>\
+            </a>\
           </div>\
           <a class="gems__gem" href="/gems/' + hit.name + '">\
               <span class="gems__gem__info">\

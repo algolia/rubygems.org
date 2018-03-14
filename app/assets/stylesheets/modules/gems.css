@@ -36,8 +36,8 @@
       float: left; } }
 
 .gems__gem {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 25px;
+  padding-bottom: 55px;
   display: block;
   overflow: auto;
   border-bottom: 1px solid #c1c4ca; }
@@ -71,7 +71,7 @@
       width: 80%; } }
 
 .gems__gem__name, .gems__gem__downloads__count {
-  margin-bottom: 6px;
+  margin-bottom: 7px;
   font-weight: 800;
   font-size: 24px; }
 
@@ -104,4 +104,5 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 1.66;
+  letter-spacing: 0.4px;
   text-transform: uppercase; }
