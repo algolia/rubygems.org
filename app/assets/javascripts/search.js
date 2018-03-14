@@ -31,8 +31,8 @@ search.addWidget(
           var desc = (hit._snippetResult.description.value ?
             hit._snippetResult.description.value :
             hit._snippetResult.summary.value);
-          var author = [hit.github_organisation, hit.authors, hit.hostname].filter(e => e && e.length)[0];
-          var authorURL = [hit.home, hit.code, 'http://www.rubydoc.info/gems/' + hit.name].filter(e => e && e.length)[0];
+          var author = [hit.github_organisation, hit.authors, hit.hostname].filter(function(e) {return e && e.length})[0];
+          var authorURL = [hit.home, hit.code, 'http://www.rubydoc.info/gems/' + hit.name].filter(function(e) {return e && e.length})[0];
 
           var authorImg = (hit.github_organisation ?
             'https://res.cloudinary.com/hilnmyskv/image/fetch/w_40,h_40,f_auto,q_80,fl_lossy/https://github.com/' + hit.github_organisation + '.png' :
