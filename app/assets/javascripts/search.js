@@ -68,6 +68,14 @@ search.addWidget(
   })
 );
 
+search.addWidget(
+  instantsearch.widgets.pagination({
+    container: '#pagination-container',
+    scrollTo: true,
+    showFirstLast: false
+  })
+);
+
 
   // <%= link_to rubygem_path(rubygem.name), :class => 'gems__gem' do %>
   //   <span class="gems__gem__info">

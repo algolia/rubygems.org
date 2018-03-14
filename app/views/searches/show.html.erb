@@ -1,7 +1,11 @@
 <div id="query"></div>
 <div id="stats-container"></div>
-<div id="hits">
-  <!-- Hits widget will appear here -->
+<div id="hits"></div>
+<div id="hits-footer">
+  <div id="pagination-container"></div>
+  <div class="ais-powered-by t-text">
+    <a href="https://www.algolia.com" target="_blank">Powered by <img src="/assets/algolia-logo-light.svg" /></a>
+  </div>
 </div>
 
 <% if @error_msg %>
@@ -9,7 +13,6 @@
     <p><%= @error_msg %></p>
   </div>
 <% end %>
-<%= link_to t("advanced_search"), advanced_search_path, class: "t-link--gray t-link--has-arrow" %>
 <% if @gems %>
   <% @subtitle = t('.subtitle', :query => content_tag(:em, h(params[:query]))) %>
 

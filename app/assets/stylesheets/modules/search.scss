@@ -224,4 +224,50 @@ dd input {
 
 .ais-stats-results {
   font-size: 16px;
+#hits-footer {
+  position: relative;
+
+  #pagination-container {
+    text-align: center;
+    margin-top: 42px;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+    }
+    ul > li {
+      float: left;
+      line-height: 40px;
+      padding: 0;
+    }
+    ul > li > a, ul > li > span {
+      font-size: 14px;
+      height: 40px;
+      text-align: center;
+      text-decoration: none;
+      padding: 0 10px;
+      display: inline-block;
+    }
+    ul > li > a:hover, .ais-pagination--item__active {
+      background: #F2F2F2;
+    }
+    .ais-pagination {
+      border: none;
+      box-shadow: none;
+      display: inline-block;
+      padding: 0;
+      width: auto;
+    }
+    .ais-pagination--item__active a {
+      color: #000 !important;
+      font-weight: 500;
+    }
+  }
+
+  .ais-powered-by {
+    position: absolute;
+    top: -9px;
+    right: 0;
+  }
 }
