@@ -5,8 +5,8 @@ const search = instantsearch({
   urlSync: true
 });
 
-const numberWithCommas = function(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const numberWithSpaces = function(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 };
 
 // initialize SearchBox
@@ -57,7 +57,7 @@ search.addWidget(
                 </h2>\
                 <p class="gems__gem__desc t-text">' + desc + '</p>\
               </span>\
-              <p class="gems__gem__downloads__count">' + numberWithCommas(hit.downloads) + '\
+              <p class="gems__gem__downloads__count">' + numberWithSpaces(hit.downloads) + '\
                 <span class="gems__gem__downloads__heading">Downloads</span>\
               </p>\
             </a>';
