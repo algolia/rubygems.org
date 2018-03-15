@@ -9,17 +9,17 @@ const numberWithSpaces = function(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 };
 
-// initialize SearchBox
-  search.addWidget(
-    instantsearch.widgets.searchBox({
-      container: '#query',
-      placeholder: 'Search for Gems',
-      autofocus: false,
-      poweredBy: false,
-      reset: true,
-      loadingIndicator: false
-    })
-  );
+// Initialize SearchBox
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#query',
+    placeholder: 'Search for Gems',
+    autofocus: false,
+    poweredBy: false,
+    reset: true,
+    loadingIndicator: false
+  })
+);
 
 search.addWidget(
     instantsearch.widgets.hits({
@@ -35,8 +35,8 @@ search.addWidget(
           var authorURL = [hit.home, hit.code, 'http://www.rubydoc.info/gems/' + hit.name].filter(function(e) {return e && e.length})[0];
 
           var authorImg = (hit.github_organisation ?
-            'https://res.cloudinary.com/hilnmyskv/image/fetch/w_40,h_40,f_auto,q_80,fl_lossy/https://github.com/' + hit.github_organisation + '.png' :
-            '/assets/ico-home.svg');
+            'https://res.cloudinary.com/hilnmyskv/image/fetch/c_scale,d_avatar_default,f_auto,q_auto:best,w_40/https://github.com/' + hit.github_organisation + '.png' :
+            '<%= asset_path("ico-home.svg") %>');
 
           for (var i = 0; i < hit.licenses.length; i++) {
             licenses += '<span class="ais-hit-license">' + hit.licenses[i] + '</span>'
@@ -50,17 +50,17 @@ search.addWidget(
             </a>\
           </div>\
           <a class="gems__gem" href="/gems/' + hit.name + '">\
-              <span class="gems__gem__info">\
-                <h2 class="gems__gem__name">' + hit._highlightResult.name.value +
-                  '<div class="ais-hit-licenses">' + licenses + '</div>\
-                  <span class="gems__gem__version">' + hit.number + '</span>\
-                </h2>\
-                <p class="gems__gem__desc t-text">' + desc + '</p>\
-              </span>\
-              <p class="gems__gem__downloads__count">' + numberWithSpaces(hit.downloads) + '\
-                <span class="gems__gem__downloads__heading">Downloads</span>\
-              </p>\
-            </a>';
+            <span class="gems__gem__info">\
+              <h2 class="gems__gem__name">' + hit._highlightResult.name.value + '\
+                <div class="ais-hit-licenses">' + licenses + '</div>\
+                <span class="gems__gem__version">' + hit.number + '</span>\
+              </h2>\
+              <p class="gems__gem__desc t-text">' + desc + '</p>\
+            </span>\
+            <p class="gems__gem__downloads__count">' + numberWithSpaces(hit.downloads) + '\
+              <span class="gems__gem__downloads__heading">Downloads</span>\
+            </p>\
+          </a>';
         }
       }
     })
@@ -83,23 +83,32 @@ search.addWidget(
   })
 );
 
-
-  // <%= link_to rubygem_path(rubygem.name), :class => 'gems__gem' do %>
-  //   <span class="gems__gem__info">
-  //     <h2 class="gems__gem__name">
-  //       <%= rubygem.name %>
-  //       <span class="gems__gem__version"><%= latest_version_number(rubygem) %></span>
-  //     </h2>
-  //     <p class="gems__gem__desc t-text"><%= short_info(rubygem) %></p>
-  //   </span>
-  //   <p class="gems__gem__downloads__count">
-  //     <%= download_count rubygem %>
-  //     <span class="gems__gem__downloads__heading">
-  //       <%= t('rubygems.index.downloads') %>
-  //     </span>
-  //   </p>
-  // <% end %>
-
+// var lastMonth = new Date();
+// lastMonth.setMonth(lastMonth.getMonth() - 1);
+// var lastWeek = new Date();
+// lastWeek.setDate(lastWeek.getDate() - 7);
+//
+// var lastYear = new Date();
+// lastYear.setYear(lastYear.getYear() - 1);
+//
+// search.addWidget(
+//   instantsearch.widgets.numericRefinementList({
+//     container: '#filters',
+//     attributeName: 'built_at_timestamp',
+//     cssClasses: {
+//       body: 'ais-filters'
+//     },
+//     options: [
+//       {name: 'All'},
+//       {start: Math.floor(lastWeek.getTime() / 1000), name: 'Updated last week'},
+//       {start: Math.floor(lastMonth.getTime() / 1000), name: 'Updated last month'},
+//       {start: Math.floor(lastYear.getTime() / 1000), name: 'Updated last year'}
+//     ],
+//     templates: {
+//       header: 'Filters'
+//     }
+//   })
+// );
 
 search.start();
 
