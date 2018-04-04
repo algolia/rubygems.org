@@ -83,32 +83,53 @@ search.addWidget(
   })
 );
 
-// var lastMonth = new Date();
-// lastMonth.setMonth(lastMonth.getMonth() - 1);
-// var lastWeek = new Date();
-// lastWeek.setDate(lastWeek.getDate() - 7);
-//
-// var lastYear = new Date();
-// lastYear.setYear(lastYear.getYear() - 1);
-//
-// search.addWidget(
-//   instantsearch.widgets.numericRefinementList({
-//     container: '#filters',
-//     attributeName: 'built_at_timestamp',
-//     cssClasses: {
-//       body: 'ais-filters'
-//     },
-//     options: [
-//       {name: 'All'},
-//       {start: Math.floor(lastWeek.getTime() / 1000), name: 'Updated last week'},
-//       {start: Math.floor(lastMonth.getTime() / 1000), name: 'Updated last month'},
-//       {start: Math.floor(lastYear.getTime() / 1000), name: 'Updated last year'}
-//     ],
-//     templates: {
-//       header: 'Filters'
-//     }
-//   })
-// );
+search.addWidget(
+  instantsearch.widgets.clearAll({
+    container: '#refinements-clear-all',
+    templates: {
+      link: 'All'
+    },
+    autoHideContainer: false
+  })
+);
+
+var lastMonth = new Date();
+lastMonth.setMonth(lastMonth.getMonth() - 1);
+var lastWeek = new Date();
+lastWeek.setDate(lastWeek.getDate() - 7);
+var lastYear = new Date();
+lastYear.setYear(lastYear.getYear() - 1);
+
+search.addWidget(
+  instantsearch.widgets.numericRefinementList({
+    container: '#refinements-filters',
+    attributeName: 'built_at_timestamp',
+    autoHideContainer: false,
+    cssClasses: {
+      body: 'ais-filters'
+    },
+    options: [
+      {start: Math.floor(lastWeek.getTime() / 1000), name: 'last week'},
+      {start: Math.floor(lastMonth.getTime() / 1000), name: 'last month'},
+      {start: Math.floor(lastYear.getTime() / 1000), name: 'last year'}
+    ]
+  })
+);
+
+var restrictOnNameWidget = {
+  init: function(options) {
+    $('#refinements-text input[name="refinement-value"]').on('click', function(e) {
+      options.helper.setQueryParameter('restrictSearchableAttributes', e.target.value);
+      options.helper.search();
+    });
+    $('#refinements-clear-all').on('click', function(e) {
+      options.helper.setQueryParameter('restrictSearchableAttributes', '');
+      options.helper.search();
+    });
+  }
+};
+
+search.addWidget(restrictOnNameWidget);
 
 search.start();
 

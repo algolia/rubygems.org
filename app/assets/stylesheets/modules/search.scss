@@ -242,6 +242,35 @@ dd input {
   }
 }
 
+#filters {
+  margin-top: 25px;
+
+  input {
+    display: none;
+  }
+
+  label {
+    display: inline-block;
+    text-align: left;
+  }
+
+  span, .ais-refinement-list--label,
+  .ais-clear-all--link, .ais-clear-all--link-disabled {
+    background: none;
+    color: #141c22;
+    font-size: 12px;
+    opacity: 1;
+    padding: 0 10px 0 0;
+    pointer-events: visible;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  div {
+    display: inline-block;
+  }
+}
+
 #hits-footer {
   position: relative;
 
